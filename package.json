@@ -3,7 +3,8 @@
   "private": true,
   "workspaces": [
     "packages/*/*",
-    "packages/*/*/*"
+    "packages/*/*/*",
+    "packages/plugins/@custom/real-estate-crm"
   ],
   "license": "AGPL-3.0",
   "engines": {
