@@ -1,30 +1,35 @@
-# Use official NocoBase image as base - this is MUCH faster than building from scratch
+# Use official NocoBase image
 FROM nocobase/nocobase:latest
 
-# Switch to root to install dependencies
+# Switch to root to set up
 USER root
 
-# Create the custom plugin directory
+# Create plugin directory
 RUN mkdir -p /app/packages/plugins/@custom/real-estate-crm
 
-# Copy our custom plugin into the image
+# Copy plugin
 COPY packages/plugins/@custom/real-estate-crm /app/packages/plugins/@custom/real-estate-crm
 
-# Set permissions for the entire app directory so 'node' user can write to it
+# Fix permissions
 RUN chown -R node:node /app
 
-# Switch back to node user
+# Switch to node user
 USER node
-
-# Install dependencies for the new plugin
 WORKDIR /app
-RUN yarn install
 
-# Rebuild the application to include the new plugin
-RUN yarn build
+# DEBUG: List files to find where package.json is
+# If this fails, we will know the path is wrong
+RUN ls -F /app
 
-# Expose port
-EXPOSE 13000
+# Install dependencies specifically for the plugin
+# WORKDIR /app/packages/plugins/@custom/real-estate-crm
+# RUN yarn install
+
+# Try to build the plugin
+# RUN yarn build
+
+# Return to app root
+WORKDIR /app
 
 # Start command
 CMD ["yarn", "start"]
