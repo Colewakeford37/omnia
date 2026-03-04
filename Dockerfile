@@ -10,8 +10,8 @@ RUN mkdir -p /app/packages/plugins/@custom/real-estate-crm
 # Copy our custom plugin into the image
 COPY packages/plugins/@custom/real-estate-crm /app/packages/plugins/@custom/real-estate-crm
 
-# Set permissions
-RUN chown -R node:node /app/packages/plugins/@custom/real-estate-crm
+# Set permissions for the entire app directory so 'node' user can write to it
+RUN chown -R node:node /app
 
 # Switch back to node user
 USER node
