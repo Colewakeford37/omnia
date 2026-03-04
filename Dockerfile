@@ -2,21 +2,19 @@ FROM node:18-slim
 
 WORKDIR /app
 
-# Install dependencies - skip postinstall for now
 COPY package.json yarn.lock ./
-RUN yarn install --ignore-scripts
-
-# Copy all packages
+# Copy all packages first so yarn can link workspaces
 COPY packages ./packages
 COPY docs ./docs
 COPY locales ./locales
 COPY scripts ./scripts
 
-# Build all packages - this makes nocobase CLI available
-RUN yarn build
+# Install dependencies
+# Now that packages are present, yarn will properly link the workspaces (including @nocobase/cli)
+RUN yarn install
 
-# Now run postinstall which needs nocobase CLI
-RUN yarn postinstall
+# Build all packages
+RUN yarn build
 
 # Expose port
 EXPOSE 13000
