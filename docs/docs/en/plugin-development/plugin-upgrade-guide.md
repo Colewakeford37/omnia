@@ -1,2 +1,0 @@
-# Plugin Upgrade Guide
-

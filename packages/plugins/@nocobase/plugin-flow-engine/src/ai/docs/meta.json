@@ -1,7 +1,0 @@
-[
-  {
-    "module": "runjs",
-    "description": "RunJS contexts and runtime APIs",
-    "source": "docs/docs/en/runjs"
-  }
-]
