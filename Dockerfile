@@ -1,19 +1,26 @@
-FROM node:20-slim
+# Use official NocoBase image as base - this is MUCH faster than building from scratch
+FROM nocobase/nocobase:latest
 
+# Switch to root to install dependencies
+USER root
+
+# Create the custom plugin directory
+RUN mkdir -p /app/packages/plugins/@custom/real-estate-crm
+
+# Copy our custom plugin into the image
+COPY packages/plugins/@custom/real-estate-crm /app/packages/plugins/@custom/real-estate-crm
+
+# Set permissions
+RUN chown -R node:node /app/packages/plugins/@custom/real-estate-crm
+
+# Switch back to node user
+USER node
+
+# Install dependencies for the new plugin
 WORKDIR /app
-
-COPY package.json yarn.lock ./
-# Copy all packages first so yarn can link workspaces
-COPY packages ./packages
-COPY docs ./docs
-COPY locales ./locales
-COPY scripts ./scripts
-
-# Install dependencies
-# Now that packages are present, yarn will properly link the workspaces (including @nocobase/cli)
 RUN yarn install
 
-# Build all packages
+# Rebuild the application to include the new plugin
 RUN yarn build
 
 # Expose port
