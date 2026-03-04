@@ -17,19 +17,9 @@ RUN chown -R node:node /app
 USER node
 WORKDIR /app
 
-# DEBUG: List files to find where package.json is
-# If this fails, we will know the path is wrong
-RUN ls -F /app
-
-# Install dependencies specifically for the plugin
-# WORKDIR /app/packages/plugins/@custom/real-estate-crm
-# RUN yarn install
-
-# Try to build the plugin
-# RUN yarn build
-
-# Return to app root
-WORKDIR /app
+# Install and Build
+RUN yarn install
+RUN yarn build
 
 # Start command
 CMD ["yarn", "start"]
