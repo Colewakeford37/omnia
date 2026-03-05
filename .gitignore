@@ -1,5 +1,6 @@
 node_modules/
 lib/
+!packages/plugins/@custom/real-estate-crm/lib/**
 esm/
 es/
 !docs/docs/es

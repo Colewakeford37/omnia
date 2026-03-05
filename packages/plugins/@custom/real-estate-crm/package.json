@@ -2,9 +2,9 @@
   "name": "@custom/real-estate-crm",
   "version": "1.0.0",
   "main": "./lib/server/index.js",
-  "dependencies": {
-    "@nocobase/database": "2.0.9",
-    "@nocobase/server": "2.0.9"
+  "peerDependencies": {
+    "@nocobase/database": "2.x",
+    "@nocobase/server": "2.x"
   },
   "license": "Apache-2.0",
   "description": "Real Estate CRM Plugin with Leads, Properties, Contacts, and Enterprise Action Plans"
