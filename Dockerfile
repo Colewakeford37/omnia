@@ -4,6 +4,9 @@ FROM nocobase/nocobase:latest
 # Switch to root to set up
 USER root
 
+# DEBUG: List contents of /app
+RUN ls -F /app
+
 # Copy our plugin source to the correct location
 COPY packages/plugins/@custom/real-estate-crm /app/packages/plugins/@custom/real-estate-crm
 
