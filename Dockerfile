@@ -10,15 +10,5 @@ COPY packages/plugins/@custom/real-estate-crm /app/packages/plugins/@custom/real
 # Fix permissions
 RUN chown -R node:node /app
 
-# Switch to node user
-USER node
-WORKDIR /app
-
-# Install dependencies (linking the plugin workspace)
-RUN yarn install
-
-# Build the plugin
-RUN yarn build
-
 # Start command
 CMD ["yarn", "start"]
