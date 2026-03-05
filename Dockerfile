@@ -4,14 +4,14 @@ FROM nocobase/nocobase:latest
 # Switch to root to set up
 USER root
 
-# DEBUG: List contents of /app
-RUN ls -F /app
+# DEBUG: List contents of root to find package.json
+RUN ls -F /
 
-# Copy our plugin source to the correct location
-COPY packages/plugins/@custom/real-estate-crm /app/packages/plugins/@custom/real-estate-crm
+# Copy our plugin source
+COPY packages/plugins/@custom/real-estate-crm /app/packages/plugins/@custom/real-estate-crm || true
 
 # Fix permissions
-RUN chown -R node:node /app
+RUN chown -R node:node /app || true
 
 # Switch to node user
 USER node
