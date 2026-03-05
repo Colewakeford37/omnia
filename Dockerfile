@@ -1,8 +1,7 @@
 # Use official NocoBase image
 FROM nocobase/nocobase:latest
 
-# Copy package.json from the base image to preserve all dependencies
-# This ensures yarn install and yarn build work perfectly
+# Copy package.json from the base image to preserve all Dependencies
 COPY --from=0 /app/package.json /app/package.json
 COPY --from=0 /app/yarn.lock /app/yarn.lock || true
 
@@ -21,6 +20,9 @@ RUN yarn install
 
 # Build the plugin
 RUN yarn build
+
+# Enable the plugin
+RUN yarn pm enable @custom/real-estate-crm
 
 # Start command
 CMD ["yarn", "start"]
