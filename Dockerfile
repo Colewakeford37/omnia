@@ -4,7 +4,10 @@ FROM nocobase/nocobase:latest
 # Switch to root to set up
 USER root
 
-# Copy our plugin source into the existing monorepo structure
+# DEBUG: List contents to find package.json
+RUN ls -F /app
+
+# Copy our plugin source
 COPY packages/plugins/@custom/real-estate-crm /app/packages/plugins/@custom/real-estate-crm
 
 # Fix permissions
