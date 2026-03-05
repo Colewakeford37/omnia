@@ -1,9 +1,8 @@
 # Use official NocoBase image
 FROM nocobase/nocobase:latest
 
-# Copy package.json from the base image to preserve all Dependencies
-COPY --from=0 /app/package.json /app/package.json
-COPY --from=0 /app/yarn.lock /app/yarn.lock || true
+# Switch to root to set up
+USER root
 
 # Copy our plugin source
 COPY packages/plugins/@custom/real-estate-crm /app/packages/plugins/@custom/real-estate-crm
@@ -20,9 +19,6 @@ RUN yarn install
 
 # Build the plugin
 RUN yarn build
-
-# Note: Enable the plugin via UI or CLI after first deployment
-# RUN yarn pm enable @custom/real-estate-crm
 
 # Start command
 CMD ["yarn", "start"]
