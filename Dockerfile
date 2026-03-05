@@ -5,13 +5,14 @@ FROM nocobase/nocobase:latest
 USER root
 
 # Copy our plugin source to the correct location
-COPY packages/plugins/@custom/real-estate-crm /app/nocobase/packages/plugins/@custom/real-estate-crm
+COPY packages/plugins/@custom/real-estate-crm /app/packages/plugins/@custom/real-estate-crm
 
 # Fix permissions
 RUN chown -R node:node /app
 
-# Set working directory
-WORKDIR /app/nocobase
+# Switch to node user
+USER node
+WORKDIR /app
 
 # Set Database Environment Variables
 ENV DB_DIALECT=postgres
