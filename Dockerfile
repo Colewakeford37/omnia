@@ -1,11 +1,10 @@
 # Use official NocoBase image
 FROM nocobase/nocobase:latest
 
-# Switch to root to set up
-USER root
-
-# DEBUG: List contents to find package.json
-RUN ls -F /app
+# Copy package.json from the base image to preserve all dependencies
+# This ensures yarn install and yarn build work perfectly
+COPY --from=0 /app/package.json /app/package.json
+COPY --from=0 /app/yarn.lock /app/yarn.lock || true
 
 # Copy our plugin source
 COPY packages/plugins/@custom/real-estate-crm /app/packages/plugins/@custom/real-estate-crm
@@ -17,7 +16,7 @@ RUN chown -R node:node /app
 USER node
 WORKDIR /app
 
-# Re-install dependencies to link the new workspace
+# Install dependencies (linking the plugin workspace)
 RUN yarn install
 
 # Build the plugin
