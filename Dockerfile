@@ -21,8 +21,8 @@ RUN yarn install
 # Build the plugin
 RUN yarn build
 
-# Enable the plugin
-RUN yarn pm enable @custom/real-estate-crm
+# Note: Enable the plugin via UI or CLI after first deployment
+# RUN yarn pm enable @custom/real-estate-crm
 
 # Start command
 CMD ["yarn", "start"]
