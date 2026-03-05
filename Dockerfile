@@ -10,5 +10,13 @@ COPY packages/plugins/@custom/real-estate-crm /app/packages/plugins/@custom/real
 # Fix permissions
 RUN chown -R node:node /app
 
+# Set Database Environment Variables
+ENV DB_DIALECT=postgres
+ENV DB_HOST=${PGHOST}
+ENV DB_PORT=${PGPORT}
+ENV DB_DATABASE=${PGDATABASE}
+ENV DB_USER=${PGUSER}
+ENV DB_PASSWORD=${PGPASSWORD}
+
 # Start command
 CMD ["yarn", "start"]
