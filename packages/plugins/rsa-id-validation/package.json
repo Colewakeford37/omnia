@@ -1,0 +1,31 @@
+{
+  "name": "@nocobase/plugin-rsa-id-validation",
+  "version": "1.0.0",
+  "description": "RSA ID validation plugin for South African Real Estate CRM",
+  "main": "dist/server/index.js",
+  "scripts": {
+    "build": "nocobase-build"
+  },
+  "dependencies": {
+    "@nocobase/server": "^2.0.0",
+    "@nocobase/database": "^2.0.0"
+  },
+  "peerDependencies": {
+    "@nocobase/server": "^2.0.0",
+    "@nocobase/database": "^2.0.0"
+  },
+  "devDependencies": {
+    "@nocobase/build": "^2.0.0"
+  },
+  "keywords": [
+    "nocobase",
+    "plugin",
+    "rsa-id",
+    "validation",
+    "south-africa",
+    "fica",
+    "compliance"
+  ],
+  "author": "SA Real Estate CRM Team",
+  "license": "Apache-2.0"
+}

@@ -1,10 +1,25 @@
 {
-  "name": "@custom/real-estate-crm",
-  "version": "1.0.0",
-  "main": "./lib/server/index.js",
+  "name": "@nocobase/plugin-real-estate-crm",
+  "version": "2.0.11",
+  "main": "./dist/server/index.js",
+  "types": "./dist/server/index.d.ts",
   "peerDependencies": {
+    "@nocobase/client": "2.x",
     "@nocobase/database": "2.x",
     "@nocobase/server": "2.x"
+  },
+  "dependencies": {
+    "@nocobase/actions": "2.0.x",
+    "@nocobase/client": "2.0.x",
+    "@nocobase/database": "2.0.x",
+    "@nocobase/sdk": "2.0.x",
+    "@nocobase/server": "2.0.x",
+    "@nocobase/utils": "2.0.x",
+    "@ant-design/icons": "5.x",
+    "antd": "5.x",
+    "antd-style": "3.x",
+    "react": "18.x",
+    "react-i18next": "11.x"
   },
   "license": "Apache-2.0",
   "description": "Real Estate CRM Plugin with Leads, Properties, Contacts, and Enterprise Action Plans"

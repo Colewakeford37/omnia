@@ -7,6 +7,9 @@ storage/app-dev
 
 # Ignore certain directories under packages
 packages/*/*/lib
+!packages/plugins/@custom/real-estate-crm
+!packages/plugins/@custom/real-estate-crm/lib
+!packages/plugins/@custom/real-estate-crm/lib/**
 packages/*/*/esm
 packages/*/*/es
 packages/*/*/dist

@@ -1,0 +1,33 @@
+{
+  "name": "@custom/sa-real-estate-crm",
+  "version": "1.0.0",
+  "description": "South African Real Estate CRM Plugin for NocoBase with FICA compliance",
+  "main": "dist/server/index.js",
+  "scripts": {
+    "build": "nocobase-build"
+  },
+  "dependencies": {
+    "@nocobase/server": "^2.0.0",
+    "@nocobase/database": "^2.0.0"
+  },
+  "peerDependencies": {
+    "@nocobase/server": "^2.0.0",
+    "@nocobase/database": "^2.0.0"
+  },
+  "devDependencies": {
+    "@nocobase/build": "^2.0.0"
+  },
+  "keywords": [
+    "nocobase",
+    "plugin",
+    "real-estate",
+    "south-africa",
+    "fica",
+    "compliance",
+    "crm",
+    "rsa-id",
+    "validation"
+  ],
+  "author": "SA Real Estate CRM Team",
+  "license": "Apache-2.0"
+}

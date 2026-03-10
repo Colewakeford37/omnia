@@ -539,8 +539,83 @@ export class RealEstateCRMPlugin extends Plugin {
     }
   }
 
+  private async createCRMMenus(db: Database) {
+    // Create menu items for CRM collections using NocoBase's page system
+    const pages = [
+      {
+        name: 'crm_leads',
+        title: 'Leads',
+        icon: 'UserOutlined',
+        collectionName: 'crm_leads'
+      },
+      {
+        name: 'crm_properties',
+        title: 'Properties',
+        icon: 'HomeOutlined',
+        collectionName: 'crm_properties'
+      },
+      {
+        name: 'crm_deals',
+        title: 'Deals',
+        icon: 'PercentageOutlined',
+        collectionName: 'crm_deals'
+      },
+      {
+        name: 'crm_contacts',
+        title: 'Contacts',
+        icon: 'TeamOutlined',
+        collectionName: 'crm_contacts'
+      }
+    ];
+
+    try {
+      // Create CRM menu group first
+      const menuRepo = db.getRepository('ui_schemas');
+      
+      // Create the main CRM menu group
+      await menuRepo.create({
+        values: {
+          uiSchema: {
+            type: 'void',
+            title: 'CRM',
+            name: 'crm',
+            icon: 'ShopOutlined',
+            'x-designer': { placement: 'sidebar' },
+            children: pages.map(page => ({
+              type: 'page',
+              title: page.title,
+              name: page.name,
+              icon: page.icon,
+              path: `/crm/${page.collectionName}`,
+              'x-resource': page.collectionName,
+              'x-decorator': 'APIClientDataBlock',
+              'x-decorator-props': {
+                resource: page.collectionName,
+                action: 'list',
+                params: { pageSize: 20 }
+              }
+            }))
+          }
+        }
+      });
+
+      console.log('CRM menu items created successfully');
+    } catch (error) {
+      console.log('Menu creation error (collections may already exist):', error.message);
+    }
+  }
+
   async afterEnable() {
-    // Post-enable tasks
+    // Post-enable tasks - add menu items
+    const db = this.app.db as Database;
+    
+    // Create menu items for CRM collections
+    try {
+      // Add CRM menu group and items
+      await this.createCRMMenus(db);
+    } catch (error) {
+      console.log('CRM menu creation skipped (may already exist)');
+    }
   }
 
   async afterDisable() {
