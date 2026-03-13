@@ -43,3 +43,11 @@ python/
 git-repos.json
 CLAUDE.md
 AGENTS.md
+
+# Generated debug artifacts
+scripts/*-output.json
+scripts/admin-diagnose-*
+scripts/get-uischema-raw-*.json
+scripts/plugins-list.json
+scripts/*.html
+scripts/*.txt

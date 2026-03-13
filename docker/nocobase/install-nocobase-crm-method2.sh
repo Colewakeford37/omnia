@@ -9,10 +9,27 @@ set -e
 echo "🚀 Starting NocoBase CRM installation using Method 2: Universal SQL Import"
 echo "This method works with all NocoBase versions including Community Edition"
 
+if ! command -v psql >/dev/null 2>&1; then
+  echo "⚠️ psql client not found in container. Skipping CRM SQL bootstrap script."
+  exit 0
+fi
+
+if [ -z "$DB_HOST" ] || [ -z "$DB_USER" ] || [ -z "$DB_DATABASE" ] || [ -z "$DB_PASSWORD" ]; then
+  echo "⚠️ DB connection variables are incomplete. Skipping CRM SQL bootstrap script."
+  exit 0
+fi
+
 # Wait for PostgreSQL to be ready
 echo "⏳ Waiting for PostgreSQL to be ready..."
+attempt=0
+max_attempts=30
 until PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -U $DB_USER -d $DB_DATABASE -c '\q' 2>/dev/null; do
   echo "Waiting for PostgreSQL..."
+  attempt=$((attempt+1))
+  if [ "$attempt" -ge "$max_attempts" ]; then
+    echo "⚠️ PostgreSQL not reachable after $max_attempts attempts. Skipping CRM SQL bootstrap script."
+    exit 0
+  fi
   sleep 2
 done
 
@@ -28,8 +45,8 @@ if [ "$CRM_EXISTS" = "t" ]; then
 fi
 
 # Execute the SQL script
-echo "📊 Installing CRM database schema and sample data..."
-PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -U $DB_USER -d $DB_DATABASE -f /app/docker/nocobase/nocobase-crm.sql
+echo "📊 Installing enhanced CRM database schema and sample data..."
+PGPASSWORD=$DB_PASSWORD psql -h $DB_HOST -U $DB_USER -d $DB_DATABASE -f /app/docker/nocobase/nocobase-crm-enhanced.sql
 
 if [ $? -eq 0 ]; then
     echo "✅ CRM database schema installed successfully!"

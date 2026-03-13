@@ -1,0 +1,45 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: nocobase
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7.2-alpine
+    ports:
+      - "6379:6379"
+
+  nocobase:
+    image: ${NOCOBASE_IMAGE}
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      DB_DIALECT: postgres
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: nocobase
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      APP_KEY: ${NOCOBASE_APP_KEY}
+      APP_ENV: production
+      NODE_ENV: production
+      CACHE_DEFAULT_STORE: redis
+      CACHE_REDIS_URL: redis://redis:6379
+      INIT_ROOT_USERNAME: admin
+      INIT_ROOT_PASSWORD: admin123
+      INIT_ROOT_NICKNAME: Admin
+      INIT_ROOT_EMAIL: admin@example.com
+      INIT_LANG: en-US
+      API_BASE_PATH: /api/
+    ports:
+      - "8080:80"
+
+volumes:
+  postgres_data:

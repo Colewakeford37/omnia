@@ -1,8 +1,8 @@
 FROM nocobase/nocobase:latest
 USER root
 
-# Copy the CRM SQL file and installation script for Method 2
-COPY docker/nocobase/nocobase-crm.sql /app/docker/nocobase/nocobase-crm.sql
+# Copy the enhanced CRM SQL file and installation script for Method 2
+COPY docker/nocobase/nocobase-crm-enhanced.sql /app/docker/nocobase/nocobase-crm-enhanced.sql
 COPY docker/nocobase/install-nocobase-crm-method2.sh /app/nocobase/storage/scripts/10-install-crm-method2.sh
 RUN chmod +x /app/nocobase/storage/scripts/10-install-crm-method2.sh
 

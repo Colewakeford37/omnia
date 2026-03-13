@@ -1,0 +1,6 @@
+.git
+.trae
+crm_demo_20250711_sql.zip
+scripts/*output*.json
+scripts/check-collection-meta-output.json
+scripts/check-uischema-output.json
